@@ -1,2 +1,2 @@
 <?php
-define ('WP_API_KEY', 'bca0387eb97f996cdfe6554d9ec482e0');
+define ('WP_API_KEY', 'd9a2b279cd8c3095b411d79999a1d963');
