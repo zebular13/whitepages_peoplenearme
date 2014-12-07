@@ -42,29 +42,21 @@
         }
         ?>
         <?php if (!empty($value['location']['lat_long']['latitude'])) { ?>
-            <?php
-                $geoplugin->locate();
-
-                $lat = round($geoplugin->latitude);
-                $long = round($geoplugin->longitude);
-            ?>
-                    <?php if (round($value['location']['lat_long']['latitude']) == $lat) { ?>
-                        <?php if (round($value['location']['lat_long']['longitude']) == $long) { ?>
-                         <p>
-                        <span>It's a match!</span>
-                        </p>
-                    <?php
-                    }
-                    ?>
-                <?php
-                }
-                ?>
-               
-
+            <p>
+                <span>Latitude:</span>
+                <?php echo $value['location']['lat_long']['latitude']; ?>
+            </p>
         <?php
         }
         ?>
-        
+        <?php if (!empty($value['location']['lat_long']['longitude'])) { ?>
+            <p>
+                <span>Latitude:</span>
+                <?php echo $value['location']['lat_long']['longitude']; ?>
+            </p>
+        <?php
+        }
+        ?>
         <?php if (!empty($value['location']['delivery_point'])) { ?>
             <p>
                 <span>Delivery Point:</span>

@@ -10,11 +10,28 @@ if (isset($result->person)) {
                         <th align="left" width="50%">Where</th>
                     </tr>
                     <?php foreach ($result->person as $key => $value) { ?>
-                        <tr class="detail_boxin" style="float: none;" >
-                            <?php include 'person_result.php'; ?>
-                            <?php include 'location_result.php'; ?>
-
-                        </tr>
+                        <?php if (!empty($value['location']['lat_long']['latitude'])) { ?>
+                        <?php
+                            $geoplugin->locate();
+                            $lat = round($geoplugin->latitude);
+                            $long = round($geoplugin->longitude);
+                        ?>
+                                <?php if (round($value['location']['lat_long']['latitude']) == $lat) { ?>
+                                    <?php if (round($value['location']['lat_long']['longitude']) == $long) { ?>
+                                     <tr class="detail_boxin" style="float: none;" >
+                                        <?php include 'person_result.php'; ?> 
+                                        <?php include 'location_result.php'; ?>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            <?php
+                            }
+                            ?>
+                        <?php
+                        }
+                        ?>
+                            
                     <?php
                     }
                     ?>
