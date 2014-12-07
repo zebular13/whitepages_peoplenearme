@@ -1,14 +1,7 @@
 <td>
-
+    
     <?php if (!empty($value['location'])) { ?>
 
-        <?php
-                require_once('geoplugin.class.php');
-                $geoplugin = new geoPlugin();
-                $geoplugin->locate();
-                echo "\t Latitude: " . round($geoplugin->latitude) . "<br />";
-                        
-        ?>
 
         <?php if (!empty($value['location']['address_line1'])) { ?>
             <p>
@@ -49,10 +42,19 @@
         }
         ?>
         <?php if (!empty($value['location']['lat_long']['latitude'])) { ?>
-            <p>
-                <span>Latitude:</span>
-                <?php echo $value['location']['lat_long']['latitude']; ?>   
-            </p>
+            <?php
+                $geoplugin->locate();
+                $lat = round($geoplugin->latitude);
+                
+            ?>
+               
+                <?php if (round($value['location']['lat_long']['latitude']) == $lat) { ?>
+                     <p>
+                    <span>It's a match!:</span>
+                    </p>
+                <?php
+                }
+                ?>
         <?php
         }
         ?>
