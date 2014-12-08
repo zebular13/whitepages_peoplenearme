@@ -13,21 +13,40 @@ if (isset($result->person)) {
                         <?php if (!empty($value['location']['lat_long']['latitude'])) { ?>
                             <?php
                                 $geoplugin->locate();
-                                $lat = round($geoplugin->latitude);
-                                $long = round($geoplugin->longitude);
-                               
+                                $mylat = ($geoplugin->latitude);
+                                $mylong = ($geoplugin->longitude);
+                                $lat = ($value['location']['lat_long']['latitude']);
+                                $long = ($value['location']['lat_long']['longitude']);
+
+                                function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'Mi') {
+                                 $theta = $longitude1 - $longitude2;
+                                 $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
+                                 $distance = acos($distance);
+                                 $distance = rad2deg($distance);
+                                 $distance = $distance * 60 * 1.1515; switch($unit) {
+                                      case 'Mi': break; case 'Km' : $distance = $distance * 1.609344;
+                                     }
+                                     return (round($distance,2));
+                                     echo (round($distance,2));
+                                }
+                                
                             ?>
-                            <?php if (is_number(sqrt((pow($value['location']['lat_long']['latitude'],2) - pow($lat,2))+(pow($value['location']['lat_long']['longitude'],2) - pow($long,2)) )) { ?>
+
+                            <?php 
+
+                             ?>
                                 <tr class="detail_boxin" style="float: none;" >
+                                   
+                                        <?php echo getDistanceBetweenPointsNew($lat, $long, $mylat, $mylong, $unit = 'Mi'); ?>
+                                                                          
                                     <?php include 'person_result.php'; ?>
                                     <?php include 'location_result.php'; ?>
+
                                 </tr>
-                            <?php
+                                  
+                                   <?php
                             }
                             ?>
-                        <?php
-                        }
-                        ?>
                      <?php
                     }
                     ?>

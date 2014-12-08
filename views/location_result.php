@@ -44,8 +44,8 @@
         <?php if (!empty($value['location']['lat_long']['latitude'])) { ?>
               <?php
                             $geoplugin->locate();
-                            $lat = ($geoplugin->latitude);
-                            $long = ($geoplugin->longitude);
+                            $mylat = ($geoplugin->latitude);
+                            $mylong = ($geoplugin->longitude);
                     ?>
 
             <p>
@@ -53,7 +53,7 @@
                 <?php echo $value['location']['lat_long']['latitude']; ?>
                 <span>Miles Away From You:</span>
   
-                <?php echo round(sqrt((pow($value['location']['lat_long']['latitude'],2) - pow($lat,2))+(pow($value['location']['lat_long']['longitude'],2) - pow($long,2)))); ?>
+                <?php echo round(sqrt((pow($value['location']['lat_long']['latitude'],2) - pow($mylat,2))+(pow($value['location']['lat_long']['longitude'],2) - pow($mylong,2)))); ?>
             </p>
         <?php
         }
