@@ -42,18 +42,15 @@
         }
         ?>
         <?php if (!empty($value['location']['lat_long']['latitude'])) { ?>
-              <?php
-                            $geoplugin->locate();
-                            $mylat = ($geoplugin->latitude);
-                            $mylong = ($geoplugin->longitude);
-                    ?>
+           
 
             <p>
                 <span>Latitude:</span>
                 <?php echo $value['location']['lat_long']['latitude']; ?>
+            </br>
                 <span>Miles Away From You:</span>
   
-                <?php echo round(sqrt((pow($value['location']['lat_long']['latitude'],2) - pow($mylat,2))+(pow($value['location']['lat_long']['longitude'],2) - pow($mylong,2)))); ?>
+                <?php echo $result; ?>
             </p>
         <?php
         }
@@ -66,7 +63,28 @@
         <?php
         }
         ?>
+        <?php
+            $geoplugin->locate();
+            $mylat = ($geoplugin->latitude);
+            $mylong = ($geoplugin->longitude);
+            $lat = ($value['location']['lat_long']['latitude']);
+            $long = ($value['location']['lat_long']['longitude']);
 
+            
+             function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2) {
+             $theta = $longitude1 - $longitude2;
+             $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
+             $distance = acos($distance);
+             $distance = rad2deg($distance);
+             $distance = $distance * 60 * 1.1515; 
+                 return (round($distance,2)); 
+            }
+            $result = getDistanceBetweenPointsNew($lat, $long, $mylat, $mylong);
+        ?>
+        <p>
+                <span>Latitude:</span>
+        <?php echo $result; ?>
+        </p>
         <?php if (!empty($value['location']['delivery_point'])) { ?>
             <p>
                 <span>Delivery Point:</span>
