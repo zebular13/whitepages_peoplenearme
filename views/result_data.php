@@ -11,28 +11,24 @@ if (isset($result->person)) {
                     </tr>
                     <?php foreach ($result->person as $key => $value) { ?>
                         <?php if (!empty($value['location']['lat_long']['latitude'])) { ?>
-                        <?php
-                            $geoplugin->locate();
-                            $lat = round($geoplugin->latitude);
-                            $long = round($geoplugin->longitude);
-                        ?>
-                                <?php if (round($value['location']['lat_long']['latitude']) == $lat) { ?>
-                                    <?php if (round($value['location']['lat_long']['longitude']) == $long) { ?>
-                                     <tr class="detail_boxin" style="float: none;" >
-                                        <?php include 'person_result.php'; ?> 
-                                        <?php include 'location_result.php'; ?>
-                                    </tr>
-                                <?php
-                                }
-                                ?>
+                            <?php
+                                $geoplugin->locate();
+                                $lat = round($geoplugin->latitude);
+                                $long = round($geoplugin->longitude);
+                               
+                            ?>
+                            <?php if (is_number(sqrt((pow($value['location']['lat_long']['latitude'],2) - pow($lat,2))+(pow($value['location']['lat_long']['longitude'],2) - pow($long,2)) )) { ?>
+                                <tr class="detail_boxin" style="float: none;" >
+                                    <?php include 'person_result.php'; ?>
+                                    <?php include 'location_result.php'; ?>
+                                </tr>
                             <?php
                             }
                             ?>
                         <?php
                         }
                         ?>
-                            
-                    <?php
+                     <?php
                     }
                     ?>
                     </tbody>

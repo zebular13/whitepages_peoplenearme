@@ -79,7 +79,7 @@ class geoPlugin {
 		$this->countryCode = $data['geoplugin_countryCode'];
 		$this->countryName = $data['geoplugin_countryName'];
 		$this->continentCode = $data['geoplugin_continentCode'];
-		$this->latitude = $data['geoplugin_latitude'];
+		$this->latitude = $data['geoplugin_latitude'];	
 		$this->longitude = $data['geoplugin_longitude'];
 		$this->currencyCode = $data['geoplugin_currencyCode'];
 		$this->currencySymbol = $data['geoplugin_currencySymbol'];
@@ -114,7 +114,23 @@ class geoPlugin {
 		return $response;
 	}
 	
-
+	function convert($amount, $float=2, $symbol=true) {
+		
+		//easily convert amounts to geolocated currency.
+		if ( !is_numeric($this->currencyConverter) || $this->currencyConverter == 0 ) {
+			trigger_error('geoPlugin class Notice: currencyConverter has no value.', E_USER_NOTICE);
+			return $amount;
+		}
+		if ( !is_numeric($amount) ) {
+			trigger_error ('geoPlugin class Warning: The amount passed to geoPlugin::convert is not numeric.', E_USER_WARNING);
+			return $amount;
+		}
+		if ( $symbol === true ) {
+			return $this->currencySymbol . round( ($amount * $this->currencyConverter), $float );
+		} else {
+			return round( ($amount * $this->currencyConverter), $float );
+		}
+	}
 	
 	function nearby($radius=10, $limit=null) {
 
