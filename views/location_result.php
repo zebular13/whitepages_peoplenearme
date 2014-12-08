@@ -47,10 +47,7 @@
             <p>
                 <span>Latitude:</span>
                 <?php echo $value['location']['lat_long']['latitude']; ?>
-            </br>
-                <span>Miles Away From You:</span>
-  
-                <?php echo $result; ?>
+
             </p>
         <?php
         }
@@ -71,18 +68,10 @@
             $long = ($value['location']['lat_long']['longitude']);
 
             
-             function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2) {
-             $theta = $longitude1 - $longitude2;
-             $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
-             $distance = acos($distance);
-             $distance = rad2deg($distance);
-             $distance = $distance * 60 * 1.1515; 
-                 return (round($distance,2)); 
-            }
             $result = getDistanceBetweenPointsNew($lat, $long, $mylat, $mylong);
         ?>
         <p>
-                <span>Latitude:</span>
+                <span>Miles Away From You:</span>
         <?php echo $result; ?>
         </p>
         <?php if (!empty($value['location']['delivery_point'])) { ?>
